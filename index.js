@@ -71,57 +71,107 @@ function swap(strArr, idx1, idx2) {
   return [tempArr, strArr];
 }
 
-let arr = [];
-let arr5 = [];
-let length;
-
 function permute(strArr, begin, end) {
-  if (strArr.length == 2) {
-    let [arr1, arr2] = swap(strArr, strArr.length - 2, strArr.length - 1);
-    let temp2 = arr5[arr5.length - 1];
-    console.log(arr5)
-    // arr5.pop();
-    arr5.pop();
+    let arr = []; // 순열을 저장할 배열
+    let arr5 = []; // 임시 배열
 
-    arr.push([...temp2, ...arr1]);
-    arr.push([...temp2, ...arr2]);
-  } else if (strArr.length > 2) {
-    for (let i = 0; i < strArr.length; i++) {
-      let arr2 = [...strArr];
-      let temp = arr2.splice(i, 1);
-      // arr.push(temp, arr2.slice(0, begin))
-      //   if (arr.length == 1) {
-      // arr.push([...arr[arr.length - 1], ...temp]);
-      //   } else {
-      // arr.push(temp);
-      //   }
+    if (strArr.length == 2) {
+      let [arr1, arr2] = swap(strArr, strArr.length - 2, strArr.length - 1);
+    //   let temp2 = arr5[arr5.length - 1];
+      let temp2 = [...arr5];
 
-      if (arr5.length != 0) {
-        let temp4 = arr5[arr5.length - 1];
-        arr5.pop();
-        arr5.push([...temp4, ...temp]);
-      } else {
-        arr5.push([...temp]);
+      arr5.pop();
+      arr.push([...temp2, ...arr1]);
+      arr.push([...temp2, ...arr2]);
+      console.log([...temp2, ...arr2]);
+    } else if (strArr.length > 2) {
+      for (let i = 0; i < strArr.length; i++) {
+        let arr2 = [...strArr];
+        let temp = arr2.splice(i, 1);
+
+        if (arr5.length != 0) {
+          let temp4 = arr5[arr5.length - 1];
+          arr5.pop();
+          arr5.push([...temp4, ...temp]);
+        } else {
+          arr5.push([...temp]);
+        }
+        const permutations = permute(arr2, begin + 1, end);
+        arr.push(...permutations);
       }
-      permute(arr2, begin + 1, end);
     }
+    return arr;
   }
-  return arr;
-}
 
-function permuteArray(strArr) {
-  length = strArr.length;
-  let answer = permute(strArr, 0, strArr.length);
+  function permuteArray(strArr) {
+    let answer = permute(strArr, 0, strArr.length);
+    answer.forEach((element) => {
+      console.log(element);
+    });
+    return answer;
+  }
 
-  answer.forEach((element) => {
-    console.log(element);
-  });
+  permuteArray(["1", "2", "3", "4"]);
 
-  return answer;
-}
 
-permuteArray(["1", "2", "3"]);
-// permuteArray(["1", "2", "3", "4"]);
+// let length;
+
+// function permute(strArr, begin, end) {
+//   let arr = [];
+//   let arr5 = [];
+//   if (strArr.length == 2) {
+//     let [arr1, arr2] = swap(strArr, strArr.length - 2, strArr.length - 1);
+//     let temp2 = arr5[arr5.length - 1];
+//     // let temp2 = [...arr5];
+//     console.log(arr5);
+//     // arr5.pop();
+//     arr5.pop();
+//     // arr5 = []
+
+//     arr.push([...temp2, ...arr1]);
+//     arr.push([...temp2, ...arr2]);
+//     console.log("/////////////////////arr", [...temp2, ...arr2]);
+//   } else if (strArr.length > 2) {
+//     for (let i = 0; i < strArr.length; i++) {
+//       let arr2 = [...strArr];
+//       let temp = arr2.splice(i, 1);
+//       // arr.push(temp, arr2.slice(0, begin))
+//       //   if (arr.length == 1) {
+//       // arr.push([...arr[arr.length - 1], ...temp]);
+//       //   } else {
+//       // arr.push(temp);
+//       //   }
+
+//       if (arr5.length != 0) {
+//         let temp4 = arr5[arr5.length - 1];
+//         // let temp4 = [...arr5];
+//         arr5.pop();
+//         arr5.push([...temp4, ...temp]);
+//       } else {
+//         arr5.push([...temp]);
+//       }
+//       permute(arr2, begin + 1, end);
+//     }
+//   }
+//   return arr;
+// }
+
+// function permuteArray(strArr) {
+//   length = strArr.length;
+//   let answer = permute(strArr, 0, strArr.length);
+
+//   answer.forEach((element) => {
+//     console.log(element);
+//   });
+
+//   return answer;
+// }
+
+
+
+
+// permuteArray(["1", "2", "3"]);
+permuteArray(["1", "2", "3", "4"]);
 
 //-----------------------
 
