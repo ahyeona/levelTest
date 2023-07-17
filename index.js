@@ -79,16 +79,17 @@ function permute(strArr, begin, end) {
     let c = [];
     for (let i = 0; i < strArr.length; i++) {
       let tempArr = [...strArr];
-      if (c.length != 0) {
-        c = [...c[0], ...tempArr.splice(i, 1)];
-      } else {
-        c = tempArr.splice(i, 1);
-      }
+      // if (c.length != 0) {
+      //   c = [...c[0], ...tempArr.splice(i, 1)];
+      // } else {
+      //   c = tempArr.splice(i, 1);
+      // }
+      c = tempArr.splice(i, 1);
 
       let resultArr = [...permute(tempArr, begin, end)];
-        resultArr.forEach((re) => {
-          arr.push([...c[0], ...re]);
-        });
+      resultArr.forEach((re) => {
+        arr.push([...c[0], ...re]);
+      });
       c = [];
     }
   }
@@ -99,8 +100,8 @@ function permute(strArr, begin, end) {
 function permuteArray(strArr) {
   let answer = permute(strArr, 0, strArr.length - 1);
   console.log(answer);
-  answer.forEach(el => {
-    console.log(el)
+  answer.forEach((el) => {
+    console.log(el);
   });
   return answer;
 }

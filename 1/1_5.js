@@ -17,11 +17,7 @@ function permute(strArr, begin, end) {
     let c = [];
     for (let i = 0; i < strArr.length; i++) {
       let tempArr = [...strArr];
-      if (c.length != 0) {
-        c = [...c[0], ...tempArr.splice(i, 1)];
-      } else {
-        c = tempArr.splice(i, 1);
-      }
+      c = tempArr.splice(i, 1);
 
       let resultArr = [...permute(tempArr, begin, end)];
       resultArr.forEach((re) => {
@@ -44,4 +40,4 @@ function permuteArray(strArr) {
 }
 
 permuteArray(["1", "2", "3"]);
-// permuteArray(["1", "2", "3", "4","5"]);
+// permuteArray(["1", "2", "3", "4"]);
